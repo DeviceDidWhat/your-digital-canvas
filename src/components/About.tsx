@@ -1,320 +1,227 @@
 import { motion } from "framer-motion";
-import { Sparkles, Code2, Palette, Lightbulb, Heart, Zap } from "lucide-react";
+import { ArrowUpRight, Quote } from "lucide-react";
 
 const About = () => {
-  const traits = [
-    { icon: <Code2 className="w-5 h-5" />, label: "Developer", delay: 0 },
-    { icon: <Palette className="w-5 h-5" />, label: "Designer", delay: 0.1 },
-    { icon: <Lightbulb className="w-5 h-5" />, label: "Innovator", delay: 0.2 },
-    { icon: <Heart className="w-5 h-5" />, label: "Passionate", delay: 0.3 },
-    { icon: <Zap className="w-5 h-5" />, label: "Fast Learner", delay: 0.4 },
-    { icon: <Sparkles className="w-5 h-5" />, label: "Creative", delay: 0.5 },
-  ];
-
-  const stats = [
-    { value: "3+", label: "Years Coding" },
-    { value: "20+", label: "Projects Built" },
-    { value: "∞", label: "Ideas" },
-  ];
+  const skills = ["React", "TypeScript", "Design", "UI/UX", "Node.js", "Figma"];
 
   return (
     <section id="about" className="py-32 md:py-40 relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* Floating orbs */}
+      {/* Large background text */}
+      <div className="absolute top-20 left-0 right-0 pointer-events-none select-none overflow-hidden">
         <motion.div
-          className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.2, 0.4, 0.2],
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        />
-        
-        {/* Grid pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px]" />
+          className="text-[20vw] font-display font-bold text-foreground/[0.02] whitespace-nowrap"
+          initial={{ x: "0%" }}
+          animate={{ x: "-50%" }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+        >
+          ABOUT ME • CREATIVE • DEVELOPER • DESIGNER • ABOUT ME • CREATIVE • DEVELOPER • DESIGNER •
+        </motion.div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        {/* Section header */}
-        <motion.div
-          className="text-center mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <motion.p
-            className="text-primary font-medium tracking-[0.3em] uppercase text-sm mb-4"
-            initial={{ opacity: 0, letterSpacing: "0.5em" }}
-            whileInView={{ opacity: 1, letterSpacing: "0.3em" }}
+        {/* Editorial header */}
+        <div className="grid lg:grid-cols-12 gap-8 mb-20">
+          <motion.div
+            className="lg:col-span-7"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <p className="text-primary font-medium tracking-[0.3em] uppercase text-sm mb-6">
+              Chapter 01
+            </p>
+            <h2 className="font-display text-6xl md:text-8xl lg:text-9xl font-bold text-foreground leading-[0.85]">
+              About
+              <br />
+              <span className="text-gradient italic">Me</span>
+            </h2>
+          </motion.div>
+
+          <motion.div
+            className="lg:col-span-5 flex items-end"
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            About Me
-          </motion.p>
-          <h2 className="font-display text-5xl md:text-7xl font-bold text-foreground">
-            <motion.span
-              className="inline-block"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              The Story
-            </motion.span>{" "}
-            <motion.span
-              className="inline-block text-gradient italic"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              Behind
-            </motion.span>
-          </h2>
-        </motion.div>
+            <p className="text-lg text-muted-foreground leading-relaxed border-l-2 border-primary/30 pl-6">
+              A passionate student on a journey to create meaningful digital experiences 
+              that blend aesthetics with functionality.
+            </p>
+          </motion.div>
+        </div>
 
-        {/* Main content - Orbital design */}
-        <div className="relative max-w-6xl mx-auto">
-          {/* Central profile area */}
+        {/* Main content - Magazine layout */}
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          {/* Left column - Image & Quote */}
           <motion.div
-            className="relative mx-auto w-72 h-72 md:w-96 md:h-96 mb-20"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            className="lg:col-span-5 relative"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            {/* Orbital rings */}
-            <motion.div
-              className="absolute inset-0 rounded-full border border-primary/20"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-            />
-            <motion.div
-              className="absolute -inset-8 md:-inset-12 rounded-full border border-primary/10"
-              animate={{ rotate: -360 }}
-              transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-            />
-            <motion.div
-              className="absolute -inset-16 md:-inset-24 rounded-full border border-primary/5"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-            />
+            {/* Main image container */}
+            <div className="relative aspect-[3/4] mb-8">
+              <div className="absolute inset-0 bg-card border border-border rounded-sm overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent" />
+                <div className="h-full flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="w-32 h-32 mx-auto mb-4 rounded-sm bg-muted flex items-center justify-center">
+                      <span className="font-display text-5xl text-primary">Y</span>
+                    </div>
+                    <p className="text-muted-foreground text-sm">Your photo here</p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Decorative frame offset */}
+              <div className="absolute -inset-3 border border-primary/20 rounded-sm -z-10" />
+              
+              {/* Corner accent */}
+              <div className="absolute -top-2 -left-2 w-8 h-8 border-t-2 border-l-2 border-primary" />
+              <div className="absolute -bottom-2 -right-2 w-8 h-8 border-b-2 border-r-2 border-primary" />
+            </div>
 
-            {/* Orbiting dots */}
-            {[...Array(6)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-2 h-2 bg-primary rounded-full"
-                style={{
-                  top: "50%",
-                  left: "50%",
-                }}
-                animate={{
-                  x: [
-                    Math.cos((i * Math.PI) / 3) * (120 + i * 20),
-                    Math.cos((i * Math.PI) / 3 + Math.PI) * (120 + i * 20),
-                    Math.cos((i * Math.PI) / 3) * (120 + i * 20),
-                  ],
-                  y: [
-                    Math.sin((i * Math.PI) / 3) * (120 + i * 20),
-                    Math.sin((i * Math.PI) / 3 + Math.PI) * (120 + i * 20),
-                    Math.sin((i * Math.PI) / 3) * (120 + i * 20),
-                  ],
-                }}
-                transition={{
-                  duration: 10 + i * 2,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-              />
-            ))}
-
-            {/* Glowing center */}
-            <div className="absolute inset-4 md:inset-8 rounded-full bg-gradient-to-br from-primary/20 to-transparent blur-2xl" />
-            
-            {/* Profile container */}
+            {/* Pull quote */}
             <motion.div
-              className="absolute inset-8 md:inset-12 rounded-full bg-card border border-border overflow-hidden"
+              className="relative bg-card/50 backdrop-blur-sm border border-border p-8 rounded-sm"
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-transparent" />
-              <div className="h-full flex items-center justify-center">
-                <div className="text-center">
-                  <motion.div
-                    className="w-20 h-20 md:w-28 md:h-28 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20"
-                    animate={{
-                      boxShadow: [
-                        "0 0 20px hsl(var(--primary) / 0.2)",
-                        "0 0 40px hsl(var(--primary) / 0.4)",
-                        "0 0 20px hsl(var(--primary) / 0.2)",
-                      ],
-                    }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                  >
-                    <span className="font-display text-4xl md:text-5xl text-primary">Y</span>
-                  </motion.div>
-                  <p className="text-muted-foreground text-xs md:text-sm">Your photo here</p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Floating availability badge */}
-            <motion.div
-              className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-card/90 backdrop-blur-sm border border-border rounded-full px-6 py-3 shadow-lg"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.8 }}
-              whileHover={{ scale: 1.05 }}
-            >
-              <div className="flex items-center gap-2">
-                <motion.div
-                  className="w-2 h-2 bg-green-500 rounded-full"
-                  animate={{ opacity: [1, 0.5, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-                <span className="text-sm font-medium text-foreground">Available for work</span>
+              <Quote className="absolute -top-4 left-6 w-8 h-8 text-primary fill-primary/20" />
+              <p className="text-xl md:text-2xl font-display italic text-foreground leading-relaxed">
+                "Design is not just what it looks like, it's how it works."
+              </p>
+              <div className="mt-4 flex items-center gap-3">
+                <div className="h-px flex-1 bg-border" />
+                <span className="text-sm text-muted-foreground">— My Philosophy</span>
               </div>
             </motion.div>
           </motion.div>
 
-          {/* Trait pills - Floating around */}
-          <div className="flex flex-wrap justify-center gap-3 mb-16">
-            {traits.map((trait, index) => (
+          {/* Right column - Content */}
+          <div className="lg:col-span-7 space-y-12">
+            {/* Bio paragraphs */}
+            <motion.div
+              className="space-y-6"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <div className="flex gap-6">
+                <span className="text-7xl font-display font-bold text-primary/20">01</span>
+                <div>
+                  <h3 className="text-2xl font-display font-bold text-foreground mb-3">The Beginning</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    My journey into the world of technology began with a simple curiosity — 
+                    how do websites work? That question sparked a passion that has only grown 
+                    stronger with each line of code written.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-6">
+                <span className="text-7xl font-display font-bold text-primary/20">02</span>
+                <div>
+                  <h3 className="text-2xl font-display font-bold text-foreground mb-3">The Craft</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Today, I specialize in creating digital experiences that are both beautiful 
+                    and functional. I believe in the power of clean code and thoughtful design 
+                    to solve real problems.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Skills marquee */}
+            <motion.div
+              className="overflow-hidden py-6 border-y border-border"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 }}
+            >
               <motion.div
-                key={trait.label}
-                className="group relative"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5 + trait.delay }}
+                className="flex gap-8 whitespace-nowrap"
+                animate={{ x: ["0%", "-50%"] }}
+                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
               >
+                {[...skills, ...skills].map((skill, index) => (
+                  <span
+                    key={index}
+                    className="text-3xl md:text-4xl font-display font-bold text-foreground/10 hover:text-primary/50 transition-colors cursor-default"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </motion.div>
+            </motion.div>
+
+            {/* Stats row */}
+            <motion.div
+              className="grid grid-cols-3 gap-6"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.6 }}
+            >
+              {[
+                { value: "3+", label: "Years of Experience" },
+                { value: "20+", label: "Projects Completed" },
+                { value: "100%", label: "Passion" },
+              ].map((stat, index) => (
                 <motion.div
-                  className="flex items-center gap-2 px-5 py-3 bg-card/50 backdrop-blur-sm border border-border rounded-full cursor-pointer"
+                  key={stat.label}
+                  className="text-center p-6 bg-card/30 border border-border/50 rounded-sm group cursor-pointer"
                   whileHover={{ 
-                    scale: 1.1, 
-                    backgroundColor: "hsl(var(--primary) / 0.1)",
+                    backgroundColor: "hsl(var(--primary) / 0.05)",
                     borderColor: "hsl(var(--primary) / 0.3)"
                   }}
-                  animate={{
-                    y: [0, -5, 0],
-                  }}
-                  transition={{
-                    y: {
-                      duration: 3 + index * 0.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    },
-                  }}
                 >
-                  <span className="text-primary">{trait.icon}</span>
-                  <span className="text-sm font-medium text-foreground">{trait.label}</span>
+                  <div className="text-4xl md:text-5xl font-display font-bold text-foreground group-hover:text-primary transition-colors">
+                    {stat.value}
+                  </div>
+                  <div className="text-xs text-muted-foreground uppercase tracking-wider mt-2">
+                    {stat.label}
+                  </div>
                 </motion.div>
-              </motion.div>
-            ))}
-          </div>
+              ))}
+            </motion.div>
 
-          {/* Bio text with creative layout */}
-          <motion.div
-            className="max-w-3xl mx-auto text-center mb-16"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.6 }}
-          >
-            <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-6">
-              <motion.span
-                className="inline-block"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.7 }}
-              >
-                I'm a passionate{" "}
-                <span className="text-foreground font-semibold">student</span> with a deep love for
-              </motion.span>{" "}
-              <motion.span
-                className="inline-block text-primary font-display italic"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.8 }}
-              >
-                technology
-              </motion.span>{" "}
-              <motion.span
-                className="inline-block"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.9 }}
-              >
-                and{" "}
-                <span className="text-primary font-display italic">design</span>.
-              </motion.span>
-            </p>
-            <motion.p
-              className="text-lg text-muted-foreground/80 leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
+            {/* CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 1 }}
+              transition={{ delay: 0.7 }}
             >
-              My journey started with curiosity about how things work, 
-              which evolved into creating meaningful digital solutions 
-              that make a difference.
-            </motion.p>
-          </motion.div>
-
-          {/* Stats section */}
-          <motion.div
-            className="flex flex-wrap justify-center gap-8 md:gap-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.8 }}
-          >
-            {stats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                className="text-center group cursor-pointer"
-                whileHover={{ scale: 1.1 }}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.9 + index * 0.1 }}
+              <motion.a
+                href="#contact"
+                className="inline-flex items-center gap-3 text-lg font-medium text-foreground group"
+                whileHover={{ x: 10 }}
               >
-                <motion.div
-                  className="text-5xl md:text-6xl font-display font-bold text-foreground mb-2"
-                  whileHover={{ color: "hsl(var(--primary))" }}
-                >
-                  {stat.value}
-                </motion.div>
-                <div className="text-sm text-muted-foreground uppercase tracking-wider">
-                  {stat.label}
-                </div>
-                <motion.div
-                  className="h-0.5 bg-primary mt-2 mx-auto"
-                  initial={{ width: 0 }}
-                  whileInView={{ width: "100%" }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 1.2 + index * 0.1, duration: 0.6 }}
-                />
-              </motion.div>
-            ))}
-          </motion.div>
+                <span className="border-b-2 border-primary pb-1">Let's work together</span>
+                <ArrowUpRight className="w-5 h-5 text-primary group-hover:rotate-45 transition-transform" />
+              </motion.a>
+            </motion.div>
+          </div>
         </div>
+
+        {/* Bottom decorative element */}
+        <motion.div
+          className="mt-20 flex items-center gap-4"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.8 }}
+        >
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+          <span className="text-xs text-muted-foreground uppercase tracking-[0.3em]">Scroll to explore</span>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+        </motion.div>
       </div>
     </section>
   );

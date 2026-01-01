@@ -8,232 +8,220 @@ const About = () => {
     offset: ["start end", "end start"],
   });
 
-  const y1 = useTransform(scrollYProgress, [0, 1], [100, -100]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [50, -50]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-
-  const words = ["Creative", "Passionate", "Curious", "Dedicated"];
+  const imageX = useTransform(scrollYProgress, [0, 1], [-50, 50]);
+  const textY = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
   return (
     <section
       ref={sectionRef}
       id="about"
-      className="py-32 md:py-48 relative overflow-hidden min-h-screen flex items-center"
+      className="py-24 md:py-32 relative overflow-hidden min-h-screen"
     >
-      {/* Animated gradient orbs */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      {/* Magazine spread layout */}
+      <div className="container mx-auto px-6">
+        {/* Issue number / Header */}
         <motion.div
-          className="absolute top-1/4 -left-32 w-96 h-96 rounded-full"
-          style={{
-            background: "radial-gradient(circle, hsl(var(--primary) / 0.15) 0%, transparent 70%)",
-            y: y1,
-          }}
-        />
-        <motion.div
-          className="absolute bottom-1/4 -right-32 w-[500px] h-[500px] rounded-full"
-          style={{
-            background: "radial-gradient(circle, hsl(var(--primary) / 0.1) 0%, transparent 70%)",
-            y: y2,
-          }}
-        />
-        <motion.div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full"
-          style={{
-            background: "radial-gradient(circle, hsl(var(--primary) / 0.05) 0%, transparent 50%)",
-          }}
-          animate={{ scale: [1, 1.1, 1], rotate: [0, 180, 360] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        />
-      </div>
+          className="flex items-center justify-between mb-16 border-b border-border pb-6"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <div className="flex items-center gap-6">
+            <span className="font-display text-8xl font-bold text-primary/20">01</span>
+            <div>
+              <p className="text-xs tracking-[0.4em] text-muted-foreground uppercase">Feature Story</p>
+              <h2 className="font-display text-2xl font-bold text-foreground">The Profile</h2>
+            </div>
+          </div>
+          <div className="hidden md:block text-right">
+            <p className="text-xs text-muted-foreground">Portfolio</p>
+            <p className="text-xs text-muted-foreground">2024 Edition</p>
+          </div>
+        </motion.div>
 
-      {/* Subtle grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:100px_100px] pointer-events-none" />
-
-      <motion.div className="container mx-auto px-6 relative z-10" style={{ opacity }}>
-        <div className="max-w-6xl mx-auto">
-          {/* Top label */}
+        {/* Main spread */}
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-4 items-start">
+          {/* Left column - Large Image */}
           <motion.div
-            className="flex items-center gap-4 mb-12"
-            initial={{ opacity: 0, x: -30 }}
+            className="lg:col-span-5 relative"
+            style={{ x: imageX }}
+            initial={{ opacity: 0, x: -100 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="h-px w-12 bg-primary" />
-            <span className="text-primary font-medium tracking-[0.3em] uppercase text-sm">
-              About Me
-            </span>
-          </motion.div>
-
-          {/* Main headline */}
-          <div className="mb-16">
-            <motion.h2
-              className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-foreground leading-[1.1] mb-8"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-            >
-              I craft digital
-              <br />
-              <span className="relative inline-block">
-                <span className="text-gradient">experiences</span>
-                <motion.span
-                  className="absolute -bottom-2 left-0 h-1 bg-primary rounded-full"
-                  initial={{ width: 0 }}
-                  whileInView={{ width: "100%" }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.6 }}
-                />
-              </span>{" "}
-              that
-              <br />
-              <span className="text-muted-foreground">inspire & delight</span>
-            </motion.h2>
-          </div>
-
-          {/* Content grid */}
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
-            {/* Left - Bio */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-            >
-              <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-8">
-                I am a <span className="text-foreground font-medium">student and developer</span> with 
-                a deep passion for creating meaningful digital solutions. My journey began with 
-                curiosity and evolved into a love for blending{" "}
-                <span className="text-primary">aesthetics</span> with{" "}
-                <span className="text-primary">functionality</span>.
-              </p>
-
-              {/* Animated words */}
-              <div className="flex flex-wrap gap-3 mb-10">
-                {words.map((word, index) => (
-                  <motion.span
-                    key={word}
-                    className="px-5 py-2.5 border border-border rounded-full text-sm font-medium text-foreground bg-card/50 backdrop-blur-sm"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.5 + index * 0.1 }}
-                    whileHover={{
-                      scale: 1.1,
-                      borderColor: "hsl(var(--primary))",
-                      backgroundColor: "hsl(var(--primary) / 0.1)",
-                    }}
-                  >
-                    {word}
-                  </motion.span>
-                ))}
+            <div className="relative">
+              {/* Main image frame */}
+              <div className="aspect-[3/4] bg-card border border-border overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-primary/20" />
+                <div className="h-full flex items-center justify-center">
+                  <div className="text-center p-8">
+                    <div className="w-32 h-32 mx-auto mb-6 bg-muted rounded-full flex items-center justify-center border-4 border-primary/20">
+                      <span className="font-display text-5xl text-primary">Y</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground italic">Your photo here</p>
+                  </div>
+                </div>
               </div>
 
-              {/* Status */}
+              {/* Photo caption */}
               <motion.div
-                className="inline-flex items-center gap-3 px-5 py-3 bg-card/80 backdrop-blur-sm border border-border rounded-full"
+                className="absolute -bottom-4 -right-4 bg-primary px-4 py-2"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5 }}
+              >
+                <p className="text-xs font-bold text-primary-foreground tracking-wider uppercase">
+                  Creative Developer
+                </p>
+              </motion.div>
+
+              {/* Decorative quote */}
+              <motion.div
+                className="absolute -top-6 -left-6 text-[120px] font-display text-primary/10 leading-none select-none"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.8 }}
               >
-                <span className="relative flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500" />
-                </span>
-                <span className="text-sm text-foreground">Available for opportunities</span>
+                "
               </motion.div>
-            </motion.div>
+            </div>
+          </motion.div>
 
-            {/* Right - Stats & Visual */}
+          {/* Right column - Content */}
+          <motion.div
+            className="lg:col-span-7 lg:pl-12"
+            style={{ y: textY }}
+          >
+            {/* Large headline */}
             <motion.div
-              className="relative"
+              className="mb-10"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ delay: 0.2 }}
             >
-              {/* Photo area */}
-              <div className="relative mb-10">
+              <h3 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.15] mb-6">
+                Where <span className="italic text-primary">passion</span> meets{" "}
+                <span className="border-b-4 border-primary">precision</span>
+              </h3>
+              <div className="w-24 h-1 bg-primary" />
+            </motion.div>
+
+            {/* Two column text */}
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+              >
+                <p className="text-muted-foreground leading-relaxed">
+                  <span className="text-5xl font-display text-primary float-left mr-3 mt-1 leading-none">I</span>
+                  am a student and developer with an insatiable curiosity for creating 
+                  meaningful digital experiences. Every project is an opportunity to 
+                  push boundaries and explore new possibilities.
+                </p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+              >
+                <p className="text-muted-foreground leading-relaxed">
+                  My approach blends thoughtful design with clean, efficient code. 
+                  I believe that the best digital products are those that feel 
+                  intuitive, look beautiful, and solve real problems elegantly.
+                </p>
+              </motion.div>
+            </div>
+
+            {/* Pull quote */}
+            <motion.blockquote
+              className="border-l-4 border-primary pl-6 py-4 mb-12"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 }}
+            >
+              <p className="font-display text-xl md:text-2xl text-foreground italic">
+                "Design is not just what it looks like. Design is how it works."
+              </p>
+              <cite className="text-sm text-muted-foreground mt-2 block not-italic">
+                — A philosophy I live by
+              </cite>
+            </motion.blockquote>
+
+            {/* Stats as magazine infographic */}
+            <motion.div
+              className="grid grid-cols-3 gap-4 p-6 bg-muted/30 border border-border"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.6 }}
+            >
+              {[
+                { value: "3+", label: "Years of Experience", detail: "Coding & Designing" },
+                { value: "20+", label: "Projects Completed", detail: "Web & Mobile" },
+                { value: "∞", label: "Cups of Coffee", detail: "& Counting" },
+              ].map((stat, index) => (
                 <motion.div
-                  className="aspect-[4/3] bg-card border border-border rounded-2xl overflow-hidden relative"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300 }}
+                  key={stat.label}
+                  className="text-center"
+                  whileHover={{ scale: 1.05 }}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-primary/5" />
-                  <div className="h-full flex items-center justify-center">
-                    <div className="text-center">
-                      <motion.div
-                        className="w-24 h-24 mx-auto mb-4 rounded-2xl bg-muted flex items-center justify-center border border-border"
-                        animate={{
-                          boxShadow: [
-                            "0 0 0 0 hsl(var(--primary) / 0)",
-                            "0 0 0 20px hsl(var(--primary) / 0.1)",
-                            "0 0 0 0 hsl(var(--primary) / 0)",
-                          ],
-                        }}
-                        transition={{ duration: 3, repeat: Infinity }}
-                      >
-                        <span className="font-display text-4xl text-primary">Y</span>
-                      </motion.div>
-                      <p className="text-sm text-muted-foreground">Your photo here</p>
-                    </div>
+                  <div className="text-4xl md:text-5xl font-display font-bold text-primary mb-1">
+                    {stat.value}
+                  </div>
+                  <div className="text-xs font-bold text-foreground uppercase tracking-wider">
+                    {stat.label}
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    {stat.detail}
                   </div>
                 </motion.div>
-
-                {/* Decorative elements */}
-                <div className="absolute -top-3 -right-3 w-24 h-24 border border-primary/20 rounded-2xl -z-10" />
-                <div className="absolute -bottom-3 -left-3 w-32 h-32 border border-primary/10 rounded-2xl -z-10" />
-              </div>
-
-              {/* Stats */}
-              <div className="grid grid-cols-3 gap-4">
-                {[
-                  { value: "3+", label: "Years" },
-                  { value: "20+", label: "Projects" },
-                  { value: "100%", label: "Passion" },
-                ].map((stat, index) => (
-                  <motion.div
-                    key={stat.label}
-                    className="text-center p-5 bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.6 + index * 0.1 }}
-                    whileHover={{
-                      y: -5,
-                      borderColor: "hsl(var(--primary) / 0.3)",
-                    }}
-                  >
-                    <div className="text-3xl md:text-4xl font-display font-bold text-foreground">
-                      {stat.value}
-                    </div>
-                    <div className="text-xs text-muted-foreground uppercase tracking-wider mt-1">
-                      {stat.label}
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+              ))}
             </motion.div>
-          </div>
 
-          {/* Bottom line */}
-          <motion.div
-            className="mt-24 flex items-center justify-center gap-6"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 1 }}
-          >
-            <div className="h-px flex-1 max-w-32 bg-gradient-to-r from-transparent to-border" />
-            <span className="text-muted-foreground/50 text-sm tracking-widest uppercase">
-              Scroll to explore
-            </span>
-            <div className="h-px flex-1 max-w-32 bg-gradient-to-l from-transparent to-border" />
+            {/* Tags / Keywords */}
+            <motion.div
+              className="mt-8 flex flex-wrap gap-2"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.7 }}
+            >
+              {["React", "TypeScript", "Design", "UI/UX", "Animation", "Problem Solving"].map((tag, index) => (
+                <motion.span
+                  key={tag}
+                  className="px-3 py-1 border border-border text-xs uppercase tracking-wider text-muted-foreground hover:border-primary hover:text-primary transition-colors cursor-default"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.8 + index * 0.05 }}
+                >
+                  {tag}
+                </motion.span>
+              ))}
+            </motion.div>
           </motion.div>
         </div>
-      </motion.div>
+
+        {/* Bottom pagination style */}
+        <motion.div
+          className="mt-20 flex items-center justify-center gap-4"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 1 }}
+        >
+          <div className="h-px w-16 bg-border" />
+          <span className="text-xs tracking-[0.3em] text-muted-foreground uppercase">Continue Reading</span>
+          <div className="h-px w-16 bg-border" />
+        </motion.div>
+      </div>
     </section>
   );
 };

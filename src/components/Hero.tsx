@@ -1,168 +1,200 @@
-import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 import { useEffect, useState } from "react";
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const name = "Your Name";
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
-      {/* Animated geometric shapes */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Large rotating ring */}
-        <div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-primary/20 rounded-full animate-spin-slow"
-        />
-        <div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-primary/10 rounded-full animate-spin-slow-reverse"
-        />
-        
-        {/* Floating orbs */}
-        <div className="absolute top-[20%] left-[15%] w-3 h-3 bg-primary rounded-full animate-float-1" />
-        <div className="absolute top-[30%] right-[20%] w-2 h-2 bg-primary/60 rounded-full animate-float-2" />
-        <div className="absolute bottom-[25%] left-[25%] w-4 h-4 bg-primary/40 rounded-full animate-float-3" />
-        <div className="absolute bottom-[35%] right-[15%] w-2 h-2 bg-primary rounded-full animate-float-1" />
-        <div className="absolute top-[60%] left-[10%] w-3 h-3 bg-primary/50 rounded-full animate-float-2" />
-        
-        {/* Diagonal lines */}
-        <div className="absolute top-0 right-0 w-px h-[40vh] bg-gradient-to-b from-transparent via-primary/30 to-transparent rotate-45 translate-x-20" />
-        <div className="absolute bottom-0 left-0 w-px h-[40vh] bg-gradient-to-t from-transparent via-primary/30 to-transparent -rotate-45 -translate-x-20" />
-        
-        {/* Corner accents */}
-        <div className="absolute top-10 left-10 w-20 h-20 border-l-2 border-t-2 border-primary/30" />
-        <div className="absolute bottom-10 right-10 w-20 h-20 border-r-2 border-b-2 border-primary/30" />
+    <section className="relative min-h-screen flex flex-col overflow-hidden bg-background">
+      {/* Marquee text background */}
+      <div className="absolute inset-0 flex flex-col justify-center overflow-hidden opacity-[0.03] pointer-events-none select-none">
+        <div className="animate-marquee whitespace-nowrap">
+          <span className="font-display text-[20vw] font-bold uppercase tracking-tighter">
+            DEVELOPER • DESIGNER • CREATOR • DEVELOPER • DESIGNER • CREATOR •&nbsp;
+          </span>
+        </div>
+        <div className="animate-marquee-reverse whitespace-nowrap">
+          <span className="font-display text-[20vw] font-bold uppercase tracking-tighter">
+            CREATIVE • STUDENT • BUILDER • CREATIVE • STUDENT • BUILDER •&nbsp;
+          </span>
+        </div>
       </div>
 
-      {/* Main content */}
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-5xl mx-auto">
-          {/* Intro badge */}
+      {/* Main content grid */}
+      <div className="flex-1 grid lg:grid-cols-2 relative z-10">
+        {/* Left side - Main info */}
+        <div className="flex flex-col justify-center px-8 md:px-16 lg:px-20 py-20 lg:py-0">
+          {/* Status badge */}
           <div 
-            className={`flex justify-center mb-8 transition-all duration-1000 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            className={`mb-8 transition-all duration-700 ${
+              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
             }`}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/5 backdrop-blur-sm">
-              <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-              <span className="text-sm text-muted-foreground tracking-widest uppercase">
-                Available for opportunities
-              </span>
+            <div className="inline-flex items-center gap-3 text-sm text-muted-foreground">
+              <span className="w-12 h-px bg-primary" />
+              <span className="tracking-widest uppercase">Portfolio 2024</span>
             </div>
           </div>
 
-          {/* Animated name - letter by letter */}
-          <div className="text-center mb-6 overflow-hidden">
-            <div className="flex flex-wrap justify-center gap-x-4 md:gap-x-6">
+          {/* Name with dramatic reveal */}
+          <div className="mb-6 overflow-hidden">
+            <h1 
+              className={`font-display text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-[0.85] transition-all duration-1000 delay-200 ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-full'
+              }`}
+            >
+              <span className="block text-foreground">Your</span>
+              <span className="block text-gradient italic">Name</span>
+            </h1>
+          </div>
+
+          {/* Role tags */}
+          <div 
+            className={`flex flex-wrap gap-3 mb-8 transition-all duration-700 delay-500 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+          >
+            {['Developer', 'Designer', 'Creator'].map((role, i) => (
               <span 
-                className={`font-display text-5xl md:text-7xl lg:text-8xl font-bold text-foreground transition-all duration-700 delay-200 ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-full'
-                }`}
+                key={role}
+                className="px-4 py-2 text-sm border border-border rounded-full text-muted-foreground hover:border-primary hover:text-primary transition-colors duration-300"
+                style={{ transitionDelay: `${600 + i * 100}ms` }}
               >
-                Hi, I'm
+                {role}
               </span>
-            </div>
-            <div className="flex justify-center mt-2 overflow-hidden">
-              {name.split('').map((letter, index) => (
-                <span
-                  key={index}
-                  className={`font-display text-6xl md:text-8xl lg:text-9xl font-bold text-gradient italic inline-block transition-all duration-500 ${
-                    isVisible ? 'opacity-100 translate-y-0 rotate-0' : 'opacity-0 translate-y-full rotate-12'
-                  }`}
-                  style={{ 
-                    transitionDelay: `${400 + index * 50}ms`,
-                  }}
-                >
-                  {letter === ' ' ? '\u00A0' : letter}
-                </span>
-              ))}
-            </div>
+            ))}
           </div>
 
-          {/* Tagline with staggered words */}
-          <div 
-            className={`text-center mb-12 transition-all duration-1000 delay-700 ${
+          {/* Description */}
+          <p 
+            className={`text-lg text-muted-foreground max-w-md mb-10 leading-relaxed transition-all duration-700 delay-700 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
           >
-            <p className="text-xl md:text-2xl lg:text-3xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              A passionate student crafting{" "}
-              <span className="text-foreground font-medium relative inline-block group">
-                digital experiences
-                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-              </span>{" "}
-              through design and development
-            </p>
-          </div>
+            A passionate student crafting digital experiences through thoughtful design and clean code.
+          </p>
 
-          {/* CTA Buttons with reveal */}
+          {/* CTA */}
           <div 
-            className={`flex flex-col sm:flex-row gap-4 justify-center items-center mb-16 transition-all duration-1000 delay-900 ${
+            className={`flex flex-wrap gap-4 transition-all duration-700 delay-900 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
           >
-            <Button variant="hero" size="xl" className="group relative overflow-hidden" asChild>
+            <Button variant="hero" size="xl" className="group" asChild>
               <a href="#projects">
-                <span className="relative z-10">View My Work</span>
-                <span className="absolute inset-0 bg-primary-foreground/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                View Projects
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </a>
             </Button>
-            <Button variant="heroOutline" size="xl" className="group" asChild>
-              <a href="#contact">
-                <span className="group-hover:text-primary transition-colors duration-300">Get In Touch</span>
-              </a>
+            <Button variant="heroOutline" size="xl" asChild>
+              <a href="#contact">Contact Me</a>
             </Button>
           </div>
+        </div>
 
-          {/* Social Links with staggered animation */}
+        {/* Right side - Visual element */}
+        <div className="relative hidden lg:flex items-center justify-center">
+          {/* Large number */}
           <div 
-            className={`flex justify-center gap-8 transition-all duration-1000 delay-1000 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            className={`absolute inset-0 flex items-center justify-center transition-all duration-1000 delay-300 ${
+              isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
             }`}
           >
+            <span className="font-display text-[40vw] font-bold text-primary/5 leading-none select-none">
+              24
+            </span>
+          </div>
+
+          {/* Rotating border frame */}
+          <div 
+            className={`relative w-80 h-80 transition-all duration-1000 delay-500 ${
+              isVisible ? 'opacity-100 rotate-0' : 'opacity-0 rotate-12'
+            }`}
+          >
+            <div className="absolute inset-0 border-2 border-primary/30 rotate-12 animate-pulse-slow" />
+            <div className="absolute inset-4 border border-primary/20 -rotate-6" />
+            <div className="absolute inset-8 border border-primary/10 rotate-3" />
+            
+            {/* Center content */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-center">
+                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary to-primary/50 flex items-center justify-center">
+                  <span className="font-display text-2xl font-bold text-primary-foreground">YN</span>
+                </div>
+                <p className="text-sm text-muted-foreground tracking-widest uppercase">Since 2020</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Floating stats */}
+          <div 
+            className={`absolute top-20 right-20 text-right transition-all duration-700 delay-700 ${
+              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
+            }`}
+          >
+            <span className="block font-display text-5xl font-bold text-foreground">15+</span>
+            <span className="text-sm text-muted-foreground">Projects</span>
+          </div>
+
+          <div 
+            className={`absolute bottom-20 left-20 transition-all duration-700 delay-800 ${
+              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
+            }`}
+          >
+            <span className="block font-display text-5xl font-bold text-foreground">4+</span>
+            <span className="text-sm text-muted-foreground">Years Learning</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom bar */}
+      <div 
+        className={`relative z-10 border-t border-border transition-all duration-700 delay-1000 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+      >
+        <div className="container mx-auto px-8 md:px-16 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+          {/* Social links */}
+          <div className="flex items-center gap-6">
             {[
-              { icon: Github, href: "https://github.com", label: "GitHub" },
-              { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-              { icon: Mail, href: "mailto:hello@example.com", label: "Email" },
-            ].map((social, index) => (
+              { icon: Github, href: "https://github.com", label: "GH" },
+              { icon: Linkedin, href: "https://linkedin.com", label: "LI" },
+              { icon: Mail, href: "mailto:hello@example.com", label: "EM" },
+            ].map((social) => (
               <a
                 key={social.label}
                 href={social.href}
                 target={social.href.startsWith("mailto") ? undefined : "_blank"}
                 rel={social.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
-                className="group flex flex-col items-center gap-2"
-                style={{ animationDelay: `${1100 + index * 100}ms` }}
+                className="group flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
               >
-                <div className="relative p-3 rounded-full border border-border bg-card/50 backdrop-blur-sm group-hover:border-primary group-hover:bg-primary/10 transition-all duration-300">
-                  <social.icon size={20} className="text-muted-foreground group-hover:text-primary transition-colors duration-300" />
-                  <span className="absolute inset-0 rounded-full bg-primary/20 scale-0 group-hover:scale-150 opacity-0 group-hover:opacity-0 transition-all duration-500" />
-                </div>
-                <span className="text-xs text-muted-foreground group-hover:text-primary transition-colors duration-300 opacity-0 group-hover:opacity-100 -translate-y-2 group-hover:translate-y-0">
-                  {social.label}
-                </span>
+                <social.icon size={18} />
+                <span className="text-xs tracking-wider hidden sm:inline">{social.label}</span>
               </a>
             ))}
           </div>
-        </div>
-      </div>
 
-      {/* Scroll indicator */}
-      <div 
-        className={`absolute bottom-10 left-1/2 -translate-x-1/2 transition-all duration-1000 delay-1200 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}
-      >
-        <a 
-          href="#about" 
-          className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
-        >
-          <span className="text-xs tracking-widest uppercase">Scroll</span>
-          <div className="w-px h-12 bg-gradient-to-b from-primary to-transparent group-hover:h-16 transition-all duration-300" />
-        </a>
+          {/* Scroll indicator */}
+          <a 
+            href="#about" 
+            className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors group"
+          >
+            <span className="text-xs tracking-widest uppercase">Scroll to explore</span>
+            <div className="w-6 h-10 rounded-full border border-current flex items-start justify-center p-2">
+              <div className="w-1 h-2 bg-current rounded-full animate-bounce" />
+            </div>
+          </a>
+
+          {/* Location */}
+          <div className="text-xs text-muted-foreground tracking-wider">
+            Based in <span className="text-foreground">Your City</span>
+          </div>
+        </div>
       </div>
     </section>
   );

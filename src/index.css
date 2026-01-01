@@ -137,3 +137,85 @@
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
+
+/* Floating animations for orbs */
+@keyframes float-1 {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(10px, -15px);
+  }
+  50% {
+    transform: translate(-5px, -25px);
+  }
+  75% {
+    transform: translate(-15px, -10px);
+  }
+}
+
+@keyframes float-2 {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-15px, 10px);
+  }
+  50% {
+    transform: translate(10px, 20px);
+  }
+  75% {
+    transform: translate(20px, -5px);
+  }
+}
+
+@keyframes float-3 {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(20px, -20px);
+  }
+  66% {
+    transform: translate(-10px, 15px);
+  }
+}
+
+.animate-float-1 {
+  animation: float-1 8s ease-in-out infinite;
+}
+
+.animate-float-2 {
+  animation: float-2 10s ease-in-out infinite;
+}
+
+.animate-float-3 {
+  animation: float-3 12s ease-in-out infinite;
+}
+
+/* Slow spin animations */
+@keyframes spin-slow {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes spin-slow-reverse {
+  from {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 60s linear infinite;
+}
+
+.animate-spin-slow-reverse {
+  animation: spin-slow-reverse 45s linear infinite;
+}

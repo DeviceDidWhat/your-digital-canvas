@@ -1,197 +1,183 @@
-import { ArrowUpRight, Github, ArrowRight } from "lucide-react";
-import { useRef } from "react";
+import { ArrowUpRight, Github } from "lucide-react";
 
 const Projects = () => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
   const projects = [
     {
+      id: 1,
       title: "E-Commerce Platform",
-      description:
-        "A full-stack e-commerce solution with real-time inventory management, secure payments, and an intuitive admin dashboard.",
-      tags: ["React", "Node.js", "PostgreSQL", "Stripe"],
-      year: "2024",
-      category: "Full Stack",
-      accent: "from-primary/20 to-primary/5",
+      description: "A full-stack e-commerce solution with real-time inventory management, payment processing, and analytics dashboard.",
+      tags: ["React", "Node.js", "MongoDB", "Stripe"],
+      image: "https://images.unsplash.com/photo-1661956602116-aa6865609028?w=800&auto=format&fit=crop&q=80",
+      github: "#",
+      live: "#",
+      size: "large"
     },
     {
-      title: "Task Management App",
-      description:
-        "A collaborative project management tool with drag-and-drop functionality, real-time updates, and team workspaces.",
-      tags: ["TypeScript", "Next.js", "Prisma", "Socket.io"],
-      year: "2024",
-      category: "Web App",
-      accent: "from-accent/20 to-accent/5",
+      id: 2,
+      title: "AI Dashboard",
+      description: "Analytics platform with machine learning insights.",
+      tags: ["Python", "TensorFlow", "React"],
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=80",
+      github: "#",
+      live: "#",
+      size: "medium"
     },
     {
-      title: "Portfolio Website",
-      description:
-        "A modern, responsive portfolio showcasing projects and skills with smooth animations and elegant design.",
-      tags: ["React", "Tailwind", "Framer Motion"],
-      year: "2023",
-      category: "Design",
-      accent: "from-muted/40 to-muted/10",
+      id: 3,
+      title: "Mobile Banking",
+      description: "Secure fintech application.",
+      tags: ["React Native", "Firebase"],
+      image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&auto=format&fit=crop&q=80",
+      github: "#",
+      live: "#",
+      size: "small"
     },
     {
-      title: "Weather Dashboard",
-      description:
-        "Real-time weather application with location-based forecasts, interactive maps, and severe weather alerts.",
-      tags: ["React", "APIs", "Chart.js"],
-      year: "2023",
-      category: "Frontend",
-      accent: "from-primary/15 to-transparent",
+      id: 4,
+      title: "Design System",
+      description: "Component library with 50+ reusable elements.",
+      tags: ["TypeScript", "Storybook"],
+      image: "https://images.unsplash.com/photo-1618788372246-79faff0c3742?w=800&auto=format&fit=crop&q=80",
+      github: "#",
+      live: "#",
+      size: "small"
+    },
+    {
+      id: 5,
+      title: "Social Platform",
+      description: "Real-time messaging and content sharing with millions of active users.",
+      tags: ["Next.js", "GraphQL", "Redis"],
+      image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&auto=format&fit=crop&q=80",
+      github: "#",
+      live: "#",
+      size: "wide"
     },
   ];
 
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollRef.current) {
-      const scrollAmount = window.innerWidth * 0.8;
-      scrollRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth'
-      });
-    }
-  };
-
   return (
-    <section id="projects" className="py-24 md:py-32 relative overflow-hidden bg-background">
-      {/* Header */}
-      <div className="container mx-auto px-6 mb-12 md:mb-16">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
-          <div>
-            <p className="text-primary font-medium tracking-[0.3em] uppercase text-xs mb-6">
-              Featured Work
-            </p>
-            <h2 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-foreground leading-[0.9]">
-              Projects
-            </h2>
-          </div>
-          
-          {/* Navigation arrows */}
-          <div className="flex items-center gap-4">
-            <button 
-              onClick={() => scroll('left')}
-              className="w-14 h-14 rounded-full border border-border flex items-center justify-center hover:border-primary hover:bg-primary/10 transition-all duration-300 group"
-            >
-              <ArrowRight size={20} className="text-muted-foreground group-hover:text-primary rotate-180 transition-colors" />
-            </button>
-            <button 
-              onClick={() => scroll('right')}
-              className="w-14 h-14 rounded-full border border-border flex items-center justify-center hover:border-primary hover:bg-primary/10 transition-all duration-300 group"
-            >
-              <ArrowRight size={20} className="text-muted-foreground group-hover:text-primary transition-colors" />
-            </button>
-          </div>
-        </div>
+    <section id="projects" className="py-32 px-6 relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-20 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-40 left-1/4 w-80 h-80 bg-primary/3 rounded-full blur-3xl" />
       </div>
 
-      {/* Horizontal Scroll Container */}
-      <div 
-        ref={scrollRef}
-        className="flex gap-6 md:gap-8 overflow-x-auto scrollbar-hide px-6 pb-8 snap-x snap-mandatory"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-      >
-        {/* Spacer */}
-        <div className="shrink-0 w-[calc(50vw-300px)] hidden lg:block" />
+      <div className="max-w-7xl mx-auto relative">
+        {/* Header */}
+        <div className="flex items-end justify-between mb-16">
+          <div>
+            <span className="text-primary font-medium tracking-widest text-sm uppercase mb-4 block">
+              Portfolio
+            </span>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-display font-bold text-foreground">
+              Featured
+              <br />
+              <span className="text-primary">Projects</span>
+            </h2>
+          </div>
+          <p className="hidden md:block text-muted-foreground max-w-xs text-right text-sm leading-relaxed">
+            A curated collection of work that showcases creativity, technical excellence, and attention to detail.
+          </p>
+        </div>
 
-        {projects.map((project, index) => (
-          <div
-            key={index}
-            className="group shrink-0 w-[85vw] md:w-[70vw] lg:w-[50vw] xl:w-[40vw] snap-center"
-          >
-            <div className={`relative h-[500px] md:h-[600px] rounded-2xl overflow-hidden bg-gradient-to-br ${project.accent} border border-border/30 hover:border-primary/30 transition-all duration-700`}>
-              {/* Large background number */}
-              <span className="absolute -bottom-20 -right-10 font-display text-[20rem] font-bold text-foreground/[0.02] leading-none pointer-events-none select-none">
-                {String(index + 1).padStart(2, '0')}
-              </span>
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-[200px]">
+          {projects.map((project, index) => {
+            const sizeClasses = {
+              large: "md:col-span-2 md:row-span-2",
+              wide: "md:col-span-2 md:row-span-1",
+              medium: "md:col-span-1 md:row-span-2",
+              small: "md:col-span-1 md:row-span-1"
+            };
 
-              {/* Content */}
-              <div className="relative h-full p-8 md:p-12 flex flex-col justify-between">
-                {/* Top */}
-                <div className="flex justify-between items-start">
-                  <div>
-                    <span className="inline-block px-4 py-1.5 rounded-full border border-primary/30 text-primary text-xs tracking-widest uppercase mb-6">
-                      {project.category}
-                    </span>
-                    <h3 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight group-hover:text-primary transition-colors duration-500">
-                      {project.title}
-                    </h3>
-                  </div>
-                  <span className="text-muted-foreground/50 font-display text-lg">{project.year}</span>
+            return (
+              <div
+                key={project.id}
+                className={`
+                  group relative rounded-2xl overflow-hidden cursor-pointer
+                  ${sizeClasses[project.size as keyof typeof sizeClasses]}
+                  animate-fade-up
+                `}
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                {/* Background Image */}
+                <div className="absolute inset-0">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
                 </div>
 
-                {/* Middle - Description */}
-                <div className="my-8">
-                  <p className="text-muted-foreground text-lg leading-relaxed max-w-lg">
-                    {project.description}
-                  </p>
-                </div>
-
-                {/* Bottom */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                {/* Content */}
+                <div className="absolute inset-0 p-6 flex flex-col justify-end">
                   {/* Tags */}
-                  <div className="flex flex-wrap gap-3">
-                    {project.tags.map((tag, i) => (
-                      <span 
-                        key={i} 
-                        className="text-sm text-muted-foreground/70 bg-background/50 backdrop-blur-sm px-4 py-2 rounded-full border border-border/30"
+                  <div className={`flex flex-wrap gap-2 mb-3 ${project.size === 'small' ? 'opacity-0 group-hover:opacity-100' : ''} transition-opacity duration-300`}>
+                    {project.tags.slice(0, project.size === 'large' ? 4 : 2).map(tag => (
+                      <span
+                        key={tag}
+                        className="px-2 py-1 text-xs font-medium bg-primary/20 text-primary rounded-full backdrop-blur-sm"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
 
-                  {/* Actions */}
-                  <div className="flex gap-3">
-                    <a 
-                      href="#" 
-                      className="w-14 h-14 rounded-full bg-foreground flex items-center justify-center group-hover:bg-primary transition-all duration-300 hover:scale-110"
+                  {/* Title */}
+                  <h3 className={`font-display font-bold text-foreground mb-2 ${
+                    project.size === 'large' ? 'text-3xl md:text-4xl' : 
+                    project.size === 'wide' ? 'text-2xl' : 'text-xl'
+                  }`}>
+                    {project.title}
+                  </h3>
+
+                  {/* Description */}
+                  {(project.size === 'large' || project.size === 'wide' || project.size === 'medium') && (
+                    <p className={`text-muted-foreground text-sm leading-relaxed mb-4 ${
+                      project.size === 'medium' ? 'line-clamp-2' : 'line-clamp-3'
+                    }`}>
+                      {project.description}
+                    </p>
+                  )}
+
+                  {/* Links */}
+                  <div className="flex items-center gap-3 mt-auto">
+                    <a
+                      href={project.live}
+                      className="flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-primary transition-colors group/link"
                     >
-                      <ArrowUpRight size={22} className="text-background" />
+                      <span>View</span>
+                      <ArrowUpRight className="w-4 h-4 transition-transform group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5" />
                     </a>
-                    <a 
-                      href="#" 
-                      className="w-14 h-14 rounded-full border border-border flex items-center justify-center hover:border-foreground transition-all duration-300"
+                    <a
+                      href={project.github}
+                      className="p-2 rounded-full bg-foreground/10 hover:bg-foreground/20 transition-colors backdrop-blur-sm"
                     >
-                      <Github size={20} className="text-muted-foreground" />
+                      <Github className="w-4 h-4 text-foreground" />
                     </a>
                   </div>
                 </div>
+
+                {/* Hover Border Effect */}
+                <div className="absolute inset-0 rounded-2xl border border-primary/0 group-hover:border-primary/30 transition-colors duration-500 pointer-events-none" />
+                
+                {/* Corner Accent */}
+                <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-primary/0 group-hover:border-primary/50 transition-colors duration-500 rounded-tr-xl" />
               </div>
-
-              {/* Decorative corner accent */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-primary/10 to-transparent" />
-            </div>
-          </div>
-        ))}
-
-        {/* View All Card */}
-        <div className="shrink-0 w-[85vw] md:w-[50vw] lg:w-[30vw] snap-center flex items-center justify-center">
-          <a href="#" className="group flex flex-col items-center justify-center text-center p-12">
-            <div className="w-24 h-24 rounded-full border-2 border-border flex items-center justify-center mb-8 group-hover:border-primary group-hover:bg-primary transition-all duration-500 group-hover:scale-110">
-              <ArrowUpRight size={32} className="text-muted-foreground group-hover:text-primary-foreground transition-colors" />
-            </div>
-            <span className="font-display text-2xl md:text-3xl text-foreground group-hover:text-primary transition-colors">
-              View All<br />Projects
-            </span>
-          </a>
+            );
+          })}
         </div>
 
-        {/* Spacer */}
-        <div className="shrink-0 w-[calc(50vw-300px)] hidden lg:block" />
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="container mx-auto px-6 mt-8">
-        <div className="flex items-center gap-3">
-          {projects.map((_, index) => (
-            <div 
-              key={index}
-              className="h-0.5 flex-1 max-w-16 bg-border rounded-full overflow-hidden"
-            >
-              <div className="h-full w-0 bg-primary group-hover:w-full transition-all duration-1000" />
-            </div>
-          ))}
+        {/* View All Link */}
+        <div className="mt-16 text-center">
+          <a 
+            href="#" 
+            className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
+          >
+            <span className="text-sm tracking-widest uppercase">View All Projects</span>
+            <ArrowUpRight className="w-4 h-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </a>
         </div>
       </div>
     </section>

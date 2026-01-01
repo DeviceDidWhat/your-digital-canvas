@@ -1,228 +1,240 @@
 import { motion } from "framer-motion";
-import { Terminal, Folder, FileCode, Circle } from "lucide-react";
+import { Heart, Star, Zap, Coffee, Code2, Palette } from "lucide-react";
 
 const About = () => {
-  const codeLines = [
-    { type: "comment", content: "// About Me - Let me introduce myself" },
-    { type: "empty", content: "" },
-    { type: "keyword", content: "const ", variable: "developer", operator: " = ", bracket: "{" },
-    { type: "property", indent: true, key: "name", value: '"Your Name"', comma: true },
-    { type: "property", indent: true, key: "role", value: '"Student & Developer"', comma: true },
-    { type: "property", indent: true, key: "location", value: '"Your City"', comma: true },
-    { type: "property", indent: true, key: "available", value: "true", comma: true, isBoolean: true },
-    { type: "bracket", content: "};" },
-    { type: "empty", content: "" },
-    { type: "comment", content: "// My tech stack" },
-    { type: "keyword", content: "const ", variable: "skills", operator: " = ", array: '["React", "TypeScript", "Node.js", "Tailwind", "Figma"]' },
-    { type: "empty", content: "" },
-    { type: "comment", content: "// A bit about my journey" },
-    { type: "keyword", content: "const ", variable: "bio", operator: " = ", string: "`" },
-    { type: "string", content: "  I'm a passionate student with a deep love for" },
-    { type: "string", content: "  technology and design. Started with curiosity," },
-    { type: "string", content: "  now building meaningful digital experiences." },
-    { type: "stringEnd", content: "`;" },
-    { type: "empty", content: "" },
-    { type: "comment", content: "// Let's connect!" },
-    { type: "function", content: "export default ", variable: "developer", semicolon: ";" },
+  const cards = [
+    {
+      type: "photo",
+      rotation: -6,
+      x: "5%",
+      y: "0%",
+      zIndex: 3,
+    },
+    {
+      type: "trait",
+      icon: <Code2 className="w-8 h-8" />,
+      label: "Developer",
+      rotation: 4,
+      x: "60%",
+      y: "5%",
+      zIndex: 2,
+    },
+    {
+      type: "trait",
+      icon: <Palette className="w-8 h-8" />,
+      label: "Designer",
+      rotation: -3,
+      x: "75%",
+      y: "35%",
+      zIndex: 4,
+    },
+    {
+      type: "note",
+      content: "Started coding at 15, never stopped since.",
+      rotation: 5,
+      x: "2%",
+      y: "55%",
+      zIndex: 2,
+    },
+    {
+      type: "stat",
+      value: "3+",
+      label: "Years",
+      rotation: -4,
+      x: "35%",
+      y: "65%",
+      zIndex: 3,
+    },
+    {
+      type: "trait",
+      icon: <Coffee className="w-8 h-8" />,
+      label: "Coffee Lover",
+      rotation: 6,
+      x: "65%",
+      y: "70%",
+      zIndex: 1,
+    },
   ];
 
-  const stats = [
-    { label: "years_coding", value: "3+" },
-    { label: "projects", value: "20+" },
-    { label: "coffee_cups", value: "∞" },
+  const floatingIcons = [
+    { icon: <Star className="w-4 h-4" />, x: "20%", y: "20%", delay: 0 },
+    { icon: <Heart className="w-4 h-4" />, x: "80%", y: "15%", delay: 0.5 },
+    { icon: <Zap className="w-4 h-4" />, x: "15%", y: "75%", delay: 1 },
+    { icon: <Star className="w-4 h-4" />, x: "85%", y: "80%", delay: 1.5 },
   ];
 
   return (
     <section id="about" className="py-32 md:py-40 relative overflow-hidden">
-      {/* Background grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none" />
+      {/* Soft background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 pointer-events-none" />
+      
+      {/* Floating decorative icons */}
+      {floatingIcons.map((item, index) => (
+        <motion.div
+          key={index}
+          className="absolute text-primary/20"
+          style={{ left: item.x, top: item.y }}
+          animate={{
+            y: [0, -15, 0],
+            rotate: [0, 10, 0],
+          }}
+          transition={{
+            duration: 4,
+            delay: item.delay,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          {item.icon}
+        </motion.div>
+      ))}
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-8"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
           <p className="text-primary font-medium tracking-[0.3em] uppercase text-sm mb-4">
-            ./about-me
+            Get to know
           </p>
-          <h2 className="font-display text-5xl md:text-7xl font-bold text-foreground">
+          <h2 className="font-display text-5xl md:text-7xl font-bold text-foreground mb-6">
             About <span className="text-gradient italic">Me</span>
           </h2>
+          <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+            A collection of moments, passions, and things that make me who I am.
+          </p>
         </motion.div>
 
-        <div className="max-w-5xl mx-auto">
-          {/* Code Editor Window */}
-          <motion.div
-            className="rounded-xl overflow-hidden border border-border bg-card shadow-2xl"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            {/* Window header */}
-            <div className="flex items-center justify-between px-4 py-3 bg-muted/50 border-b border-border">
-              <div className="flex items-center gap-2">
-                <div className="flex gap-1.5">
-                  <Circle className="w-3 h-3 fill-red-500 text-red-500" />
-                  <Circle className="w-3 h-3 fill-yellow-500 text-yellow-500" />
-                  <Circle className="w-3 h-3 fill-green-500 text-green-500" />
-                </div>
-              </div>
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <FileCode className="w-4 h-4" />
-                <span className="text-sm font-mono">about.tsx</span>
-              </div>
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Folder className="w-4 h-4" />
-                <span className="text-sm font-mono">~/portfolio</span>
-              </div>
-            </div>
-
-            {/* Code content */}
-            <div className="p-6 font-mono text-sm md:text-base overflow-x-auto">
-              {codeLines.map((line, index) => (
-                <motion.div
-                  key={index}
-                  className="flex"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                >
-                  {/* Line number */}
-                  <span className="w-8 md:w-12 text-muted-foreground/50 select-none text-right pr-4">
-                    {index + 1}
-                  </span>
-                  
-                  {/* Code */}
-                  <div className="flex-1">
-                    {line.type === "comment" && (
-                      <span className="text-muted-foreground">{line.content}</span>
-                    )}
-                    {line.type === "empty" && <span>&nbsp;</span>}
-                    {line.type === "keyword" && (
-                      <span>
-                        <span className="text-purple-400">{line.content}</span>
-                        <span className="text-foreground">{line.variable}</span>
-                        <span className="text-muted-foreground">{line.operator}</span>
-                        {line.bracket && <span className="text-foreground">{line.bracket}</span>}
-                        {line.array && <span className="text-green-400">{line.array}</span>}
-                        {line.string && <span className="text-green-400">{line.string}</span>}
-                      </span>
-                    )}
-                    {line.type === "property" && (
-                      <span>
-                        <span className="text-muted-foreground">{line.indent && "  "}</span>
-                        <span className="text-primary">{line.key}</span>
-                        <span className="text-muted-foreground">: </span>
-                        <span className={line.isBoolean ? "text-orange-400" : "text-green-400"}>
-                          {line.value}
-                        </span>
-                        {line.comma && <span className="text-muted-foreground">,</span>}
-                      </span>
-                    )}
-                    {line.type === "bracket" && (
-                      <span className="text-foreground">{line.content}</span>
-                    )}
-                    {line.type === "string" && (
-                      <span className="text-green-400">{line.content}</span>
-                    )}
-                    {line.type === "stringEnd" && (
-                      <span className="text-green-400">{line.content}</span>
-                    )}
-                    {line.type === "function" && (
-                      <span>
-                        <span className="text-purple-400">{line.content}</span>
-                        <span className="text-foreground">{line.variable}</span>
-                        <span className="text-muted-foreground">{line.semicolon}</span>
-                      </span>
-                    )}
+        {/* Scattered cards area */}
+        <div className="relative h-[600px] md:h-[700px] max-w-5xl mx-auto">
+          {cards.map((card, index) => (
+            <motion.div
+              key={index}
+              className="absolute"
+              style={{
+                left: card.x,
+                top: card.y,
+                zIndex: card.zIndex,
+              }}
+              initial={{ opacity: 0, scale: 0.8, rotate: 0 }}
+              whileInView={{ 
+                opacity: 1, 
+                scale: 1, 
+                rotate: card.rotation 
+              }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.5 }}
+              whileHover={{ 
+                scale: 1.1, 
+                rotate: 0, 
+                zIndex: 10,
+                transition: { duration: 0.2 }
+              }}
+            >
+              {card.type === "photo" && (
+                <div className="w-48 md:w-56 bg-card p-3 pb-12 rounded-sm shadow-xl border border-border cursor-pointer">
+                  <div className="aspect-square bg-muted rounded-sm flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="w-16 h-16 mx-auto mb-2 rounded-full bg-primary/10 flex items-center justify-center">
+                        <span className="font-display text-3xl text-primary">Y</span>
+                      </div>
+                      <p className="text-xs text-muted-foreground">Your photo</p>
+                    </div>
                   </div>
-                </motion.div>
-              ))}
-              
-              {/* Blinking cursor */}
-              <div className="flex mt-1">
-                <span className="w-8 md:w-12 text-muted-foreground/50 select-none text-right pr-4">
-                  {codeLines.length + 1}
-                </span>
-                <motion.span
-                  className="w-2 h-5 bg-primary"
-                  animate={{ opacity: [1, 0] }}
-                  transition={{ duration: 0.8, repeat: Infinity }}
-                />
-              </div>
-            </div>
-          </motion.div>
+                  <p className="absolute bottom-3 left-0 right-0 text-center font-handwriting text-sm text-muted-foreground">
+                    That is me! ✨
+                  </p>
+                </div>
+              )}
 
-          {/* Terminal output */}
+              {card.type === "trait" && (
+                <div className="w-32 md:w-36 bg-card p-4 rounded-2xl shadow-xl border border-border cursor-pointer text-center">
+                  <div className="w-14 h-14 mx-auto mb-3 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                    {card.icon}
+                  </div>
+                  <p className="font-semibold text-foreground text-sm">{card.label}</p>
+                </div>
+              )}
+
+              {card.type === "note" && (
+                <div className="w-52 md:w-60 bg-amber-50 dark:bg-amber-900/20 p-5 rounded-sm shadow-xl border border-amber-200/50 dark:border-amber-800/30 cursor-pointer">
+                  <p className="font-handwriting text-base text-amber-900 dark:text-amber-100 leading-relaxed">
+                    "{card.content}"
+                  </p>
+                  <div className="mt-3 flex justify-end">
+                    <span className="text-xs text-amber-600 dark:text-amber-400">- me</span>
+                  </div>
+                </div>
+              )}
+
+              {card.type === "stat" && (
+                <div className="w-28 md:w-32 bg-primary text-primary-foreground p-5 rounded-2xl shadow-xl cursor-pointer text-center">
+                  <p className="text-4xl font-display font-bold">{card.value}</p>
+                  <p className="text-sm opacity-80">{card.label}</p>
+                </div>
+              )}
+            </motion.div>
+          ))}
+
+          {/* Center bio card */}
           <motion.div
-            className="mt-6 rounded-xl overflow-hidden border border-border bg-card"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-72 md:w-80 z-5"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
+            whileHover={{ scale: 1.05 }}
           >
-            {/* Terminal header */}
-            <div className="flex items-center gap-2 px-4 py-2 bg-muted/50 border-b border-border">
-              <Terminal className="w-4 h-4 text-primary" />
-              <span className="text-sm font-mono text-muted-foreground">terminal</span>
-            </div>
-
-            {/* Terminal content */}
-            <div className="p-6 font-mono text-sm">
-              <motion.div
-                className="text-muted-foreground mb-4"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5 }}
-              >
-                <span className="text-green-400">➜</span>{" "}
-                <span className="text-primary">~</span> npm run stats
-              </motion.div>
-
-              <div className="grid grid-cols-3 gap-4">
-                {stats.map((stat, index) => (
-                  <motion.div
-                    key={stat.label}
-                    className="p-4 bg-muted/30 rounded-lg border border-border/50 text-center"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.6 + index * 0.1 }}
-                    whileHover={{ 
-                      scale: 1.05,
-                      borderColor: "hsl(var(--primary) / 0.5)"
-                    }}
-                  >
-                    <div className="text-3xl md:text-4xl font-bold text-foreground mb-1">
-                      {stat.value}
-                    </div>
-                    <div className="text-xs text-muted-foreground">
-                      {stat.label}
-                    </div>
-                  </motion.div>
-                ))}
+            <div className="bg-card/90 backdrop-blur-sm p-6 md:p-8 rounded-2xl shadow-2xl border border-border">
+              <h3 className="font-display text-2xl font-bold text-foreground mb-3">
+                Hello! I am
+                <span className="text-primary"> Your Name</span>
+              </h3>
+              <p className="text-muted-foreground leading-relaxed mb-4">
+                A passionate student who loves creating beautiful digital experiences 
+                that blend aesthetics with functionality.
+              </p>
+              <div className="flex items-center gap-2">
+                <motion.div
+                  className="w-2 h-2 bg-green-500 rounded-full"
+                  animate={{ opacity: [1, 0.5, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                />
+                <span className="text-sm text-muted-foreground">Available for projects</span>
               </div>
-
-              <motion.div
-                className="mt-6 text-muted-foreground"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.9 }}
-              >
-                <span className="text-green-400">✓</span>{" "}
-                <span className="text-foreground">Ready to collaborate!</span>{" "}
-                <span className="text-muted-foreground/50">Run `npm run contact` to connect</span>
-              </motion.div>
             </div>
           </motion.div>
         </div>
+
+        {/* Skills ticker */}
+        <motion.div
+          className="mt-8 overflow-hidden py-6 border-y border-border/50"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <motion.div
+            className="flex gap-12 whitespace-nowrap"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          >
+            {[...Array(2)].map((_, setIndex) => (
+              <div key={setIndex} className="flex gap-12">
+                {["React", "TypeScript", "Tailwind", "Figma", "Node.js", "Design"].map((skill) => (
+                  <span
+                    key={`${setIndex}-${skill}`}
+                    className="text-2xl md:text-3xl font-display text-foreground/10"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            ))}
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

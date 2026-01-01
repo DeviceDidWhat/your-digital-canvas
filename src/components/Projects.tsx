@@ -1,5 +1,4 @@
-import { ExternalLink, Github } from "lucide-react";
-import { Button } from "./ui/button";
+import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
 
 const Projects = () => {
   const projects = [
@@ -8,132 +7,150 @@ const Projects = () => {
       description:
         "A full-stack e-commerce solution with real-time inventory management, secure payments, and an intuitive admin dashboard.",
       tags: ["React", "Node.js", "PostgreSQL", "Stripe"],
-      image: "linear-gradient(135deg, hsl(38 92% 50% / 0.3), hsl(280 80% 40% / 0.2))",
-      featured: true,
+      year: "2024",
+      category: "Full Stack",
     },
     {
       title: "Task Management App",
       description:
         "A collaborative project management tool with drag-and-drop functionality, real-time updates, and team workspaces.",
       tags: ["TypeScript", "Next.js", "Prisma", "Socket.io"],
-      image: "linear-gradient(135deg, hsl(200 80% 50% / 0.3), hsl(38 92% 50% / 0.2))",
-      featured: true,
+      year: "2024",
+      category: "Web App",
     },
     {
       title: "Portfolio Website",
       description:
         "A modern, responsive portfolio showcasing projects and skills with smooth animations and elegant design.",
       tags: ["React", "Tailwind", "Framer Motion"],
-      image: "linear-gradient(135deg, hsl(160 60% 40% / 0.3), hsl(200 80% 50% / 0.2))",
-      featured: false,
+      year: "2023",
+      category: "Design",
     },
     {
       title: "Weather Dashboard",
       description:
         "Real-time weather application with location-based forecasts, interactive maps, and severe weather alerts.",
       tags: ["React", "APIs", "Chart.js"],
-      image: "linear-gradient(135deg, hsl(280 80% 40% / 0.3), hsl(320 80% 50% / 0.2))",
-      featured: false,
+      year: "2023",
+      category: "Frontend",
     },
   ];
 
   return (
-    <section id="projects" className="py-24 md:py-32 relative">
+    <section id="projects" className="py-24 md:py-32 relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 left-0 w-64 h-64 bg-accent/5 rounded-full blur-3xl" />
+      
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <p className="text-primary font-medium tracking-widest uppercase text-sm mb-4">
-            Portfolio
-          </p>
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Featured <span className="text-gradient italic">Projects</span>
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            A selection of projects that demonstrate my skills in design, development, 
-            and problem-solving.
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-20">
+          <div>
+            <p className="text-primary font-medium tracking-widest uppercase text-sm mb-4">
+              Selected Work
+            </p>
+            <h2 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold text-foreground">
+              Featured<br />
+              <span className="text-gradient italic">Projects</span>
+            </h2>
+          </div>
+          <p className="text-muted-foreground text-lg max-w-md mt-6 md:mt-0 md:text-right">
+            A curated selection of projects that showcase my passion for crafting beautiful digital experiences.
           </p>
         </div>
 
-        {/* Featured Projects */}
-        <div className="grid lg:grid-cols-2 gap-8 mb-8">
-          {projects
-            .filter((p) => p.featured)
-            .map((project, index) => (
-              <div
-                key={index}
-                className="group rounded-2xl bg-card border border-border overflow-hidden hover:border-primary/30 transition-all duration-300 hover-lift"
-              >
-                {/* Project Image/Preview */}
-                <div
-                  className="aspect-video relative"
-                  style={{ background: project.image }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
+        {/* Projects List - Editorial Style */}
+        <div className="space-y-0">
+          {projects.map((project, index) => (
+            <div
+              key={index}
+              className="group relative"
+            >
+              {/* Divider Line */}
+              <div className="absolute top-0 left-0 right-0 h-px bg-border" />
+              
+              <div className="py-12 md:py-16 grid grid-cols-12 gap-4 md:gap-8 items-start cursor-pointer">
+                {/* Number */}
+                <div className="col-span-2 md:col-span-1">
+                  <span className="font-display text-4xl md:text-5xl font-bold text-muted-foreground/30 group-hover:text-primary/50 transition-colors duration-500">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
                 </div>
 
-                {/* Project Info */}
-                <div className="p-6">
-                  <h3 className="font-display text-2xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
+                {/* Title & Category */}
+                <div className="col-span-10 md:col-span-5 lg:col-span-4">
+                  <span className="text-xs uppercase tracking-widest text-primary mb-2 block">
+                    {project.category}
+                  </span>
+                  <h3 className="font-display text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground group-hover:text-primary transition-colors duration-300 leading-tight">
                     {project.title}
                   </h3>
-                  <p className="text-muted-foreground mb-4 leading-relaxed">
+                  <span className="text-muted-foreground text-sm mt-2 block">
+                    {project.year}
+                  </span>
+                </div>
+
+                {/* Description - Hidden on mobile */}
+                <div className="col-span-12 md:col-span-4 lg:col-span-5 md:pl-4">
+                  <p className="text-muted-foreground leading-relaxed mt-4 md:mt-0">
                     {project.description}
                   </p>
-                  <div className="flex flex-wrap gap-2 mb-6">
+                  
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 mt-4">
                     {project.tags.map((tag, tagIndex) => (
                       <span
                         key={tagIndex}
-                        className="px-3 py-1 text-xs rounded-full bg-muted text-muted-foreground"
+                        className="text-xs text-muted-foreground/70 italic"
                       >
-                        {tag}
+                        {tag}{tagIndex < project.tags.length - 1 && " ·"}
                       </span>
                     ))}
                   </div>
-                  <div className="flex gap-4">
-                    <Button variant="heroOutline" size="sm" asChild>
-                      <a href="#" className="flex items-center gap-2">
-                        <Github size={16} />
-                        Code
-                      </a>
-                    </Button>
-                    <Button variant="ghost" size="sm" asChild>
-                      <a href="#" className="flex items-center gap-2">
-                        <ExternalLink size={16} />
-                        Live Demo
-                      </a>
-                    </Button>
-                  </div>
+                </div>
+
+                {/* Action */}
+                <div className="col-span-12 md:col-span-2 flex items-center justify-start md:justify-end gap-4 mt-6 md:mt-0">
+                  <a 
+                    href="#" 
+                    className="w-12 h-12 rounded-full border border-border flex items-center justify-center group-hover:border-primary group-hover:bg-primary transition-all duration-300"
+                  >
+                    <ArrowUpRight 
+                      size={20} 
+                      className="text-muted-foreground group-hover:text-primary-foreground transition-colors duration-300" 
+                    />
+                  </a>
+                  <a 
+                    href="#" 
+                    className="w-12 h-12 rounded-full border border-border flex items-center justify-center hover:border-primary/50 transition-all duration-300"
+                  >
+                    <Github size={18} className="text-muted-foreground" />
+                  </a>
                 </div>
               </div>
-            ))}
+
+              {/* Bottom Divider for last item */}
+              {index === projects.length - 1 && (
+                <div className="absolute bottom-0 left-0 right-0 h-px bg-border" />
+              )}
+
+              {/* Hover Background Effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
+            </div>
+          ))}
         </div>
 
-        {/* Other Projects */}
-        <div className="grid md:grid-cols-2 gap-6">
-          {projects
-            .filter((p) => !p.featured)
-            .map((project, index) => (
-              <div
-                key={index}
-                className="group p-6 rounded-2xl bg-card/50 border border-border hover:border-primary/30 transition-all duration-300"
-              >
-                <h3 className="font-display text-xl font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag, tagIndex) => (
-                    <span
-                      key={tagIndex}
-                      className="px-2 py-1 text-xs rounded-full bg-muted/50 text-muted-foreground"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
+        {/* View All Link */}
+        <div className="mt-16 flex justify-center">
+          <a 
+            href="#" 
+            className="group inline-flex items-center gap-3 text-foreground hover:text-primary transition-colors duration-300"
+          >
+            <span className="font-display text-lg">View all projects</span>
+            <span className="w-10 h-10 rounded-full border border-current flex items-center justify-center group-hover:bg-primary group-hover:border-primary group-hover:text-primary-foreground transition-all duration-300">
+              <ArrowUpRight size={18} />
+            </span>
+          </a>
         </div>
       </div>
     </section>

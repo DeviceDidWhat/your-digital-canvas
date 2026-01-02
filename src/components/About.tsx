@@ -1,249 +1,226 @@
-import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 const About = () => {
-  const containerRef = useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
-    target: containerRef,
+    target: sectionRef,
     offset: ["start end", "end start"],
   });
 
-  const y1 = useTransform(scrollYProgress, [0, 1], [100, -100]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [50, -50]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, 5]);
-
-  const skills = ["React", "TypeScript", "Node.js", "Python", "Figma", "AWS"];
-  const interests = ["Design", "Music", "Photography", "Travel"];
+  const imageX = useTransform(scrollYProgress, [0, 1], [-50, 50]);
+  const textY = useTransform(scrollYProgress, [0, 1], [50, -50]);
 
   return (
     <section
+      ref={sectionRef}
       id="about"
-      ref={containerRef}
-      className="min-h-screen py-32 px-6 md:px-12 relative overflow-hidden"
+      className="py-24 md:py-32 relative overflow-hidden min-h-screen"
     >
-      {/* Background Elements */}
-      <div className="absolute inset-0 pointer-events-none">
+      {/* Magazine spread layout */}
+      <div className="container mx-auto px-6">
+        {/* Issue number / Header */}
         <motion.div
-          style={{ y: y1 }}
-          className="absolute top-20 right-[10%] w-72 h-72 rounded-full bg-primary/5 blur-3xl"
-        />
-        <motion.div
-          style={{ y: y2 }}
-          className="absolute bottom-20 left-[5%] w-96 h-96 rounded-full bg-primary/3 blur-3xl"
-        />
-      </div>
-
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          className="flex items-center justify-between mb-16 border-b border-border pb-6"
+          initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="mb-16"
         >
-          <span className="text-primary/60 font-mono text-sm tracking-[0.3em] uppercase">
-            Get to know me
-          </span>
-          <h2 className="font-display text-5xl md:text-7xl font-bold mt-4 text-foreground">
-            About<span className="text-primary">.</span>
-          </h2>
+          <div className="flex items-center gap-6">
+            <span className="font-display text-8xl font-bold text-primary/20">01</span>
+            <div>
+              <p className="text-xs tracking-[0.4em] text-muted-foreground uppercase">Feature Story</p>
+              <h2 className="font-display text-2xl font-bold text-foreground">The Profile</h2>
+            </div>
+          </div>
+          <div className="hidden md:block text-right">
+            <p className="text-xs text-muted-foreground">Portfolio</p>
+            <p className="text-xs text-muted-foreground">2024 Edition</p>
+          </div>
         </motion.div>
 
-        {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-          {/* Large Photo Card */}
+        {/* Main spread */}
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-4 items-start">
+          {/* Left column - Large Image */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
+            className="lg:col-span-5 relative"
+            style={{ x: imageX }}
+            initial={{ opacity: 0, x: -100 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            style={{ rotate }}
-            className="md:col-span-2 md:row-span-2 group relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/10"
+            transition={{ duration: 0.8 }}
           >
-            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
-            <div className="relative h-full min-h-[400px] md:min-h-[500px] flex flex-col justify-end p-8">
-              {/* Placeholder for photo */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-40 h-40 md:w-56 md:h-56 rounded-full border-2 border-dashed border-primary/30 flex items-center justify-center mx-auto group-hover:border-primary/50 transition-colors duration-500">
-                    <span className="text-primary/40 font-mono text-sm">Your Photo</span>
+            <div className="relative">
+              {/* Main image frame */}
+              <div className="aspect-[3/4] bg-card border border-border overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-primary/20" />
+                <div className="h-full flex items-center justify-center">
+                  <div className="text-center p-8">
+                    <div className="w-32 h-32 mx-auto mb-6 bg-muted rounded-full flex items-center justify-center border-4 border-primary/20">
+                      <span className="font-display text-5xl text-primary">Y</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground italic">Your photo here</p>
                   </div>
                 </div>
               </div>
-              {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-              {/* Name overlay */}
-              <div className="relative z-10">
-                <h3 className="font-display text-4xl md:text-5xl font-bold text-foreground">
-                  Your Name
-                </h3>
-                <p className="text-primary/80 mt-2 font-mono text-sm tracking-wide">
-                  Creative Developer & Designer
+
+              {/* Photo caption */}
+              <motion.div
+                className="absolute -bottom-4 -right-4 bg-primary px-4 py-2"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.5 }}
+              >
+                <p className="text-xs font-bold text-primary-foreground tracking-wider uppercase">
+                  Creative Developer
                 </p>
-              </div>
+              </motion.div>
+
+              {/* Decorative quote */}
+              <motion.div
+                className="absolute -top-6 -left-6 text-[120px] font-display text-primary/10 leading-none select-none"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+              >
+                "
+              </motion.div>
             </div>
           </motion.div>
 
-          {/* Bio Card */}
+          {/* Right column - Content */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="md:col-span-1 lg:col-span-2 p-6 md:p-8 rounded-3xl bg-card border border-border hover:border-primary/30 transition-colors duration-500"
+            className="lg:col-span-7 lg:pl-12"
+            style={{ y: textY }}
           >
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-primary/60 font-mono text-xs uppercase tracking-wider">Bio</span>
-            </div>
-            <p className="text-foreground/80 leading-relaxed text-lg">
-              I'm a passionate developer who loves crafting beautiful digital experiences. 
-              With a keen eye for design and a love for clean code, I bridge the gap between 
-              aesthetics and functionality.
-            </p>
-          </motion.div>
+            {/* Large headline */}
+            <motion.div
+              className="mb-10"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <h3 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.15] mb-6">
+                Where <span className="italic text-primary">passion</span> meets{" "}
+                <span className="border-b-4 border-primary">precision</span>
+              </h3>
+              <div className="w-24 h-1 bg-primary" />
+            </motion.div>
 
-          {/* Skills Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="p-6 md:p-8 rounded-3xl bg-gradient-to-br from-primary/10 to-transparent border border-primary/20 hover:border-primary/40 transition-colors duration-500"
-          >
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-2 h-2 rounded-full bg-primary" />
-              <span className="text-primary/60 font-mono text-xs uppercase tracking-wider">Skills</span>
+            {/* Two column text */}
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+              >
+                <p className="text-muted-foreground leading-relaxed">
+                  <span className="text-5xl font-display text-primary float-left mr-3 mt-1 leading-none">I</span>
+                  am a student and developer with an insatiable curiosity for creating 
+                  meaningful digital experiences. Every project is an opportunity to 
+                  push boundaries and explore new possibilities.
+                </p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+              >
+                <p className="text-muted-foreground leading-relaxed">
+                  My approach blends thoughtful design with clean, efficient code. 
+                  I believe that the best digital products are those that feel 
+                  intuitive, look beautiful, and solve real problems elegantly.
+                </p>
+              </motion.div>
             </div>
-            <div className="flex flex-wrap gap-2">
-              {skills.map((skill, index) => (
+
+            {/* Pull quote */}
+            <motion.blockquote
+              className="border-l-4 border-primary pl-6 py-4 mb-12"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 }}
+            >
+              <p className="font-display text-xl md:text-2xl text-foreground italic">
+                "Design is not just what it looks like. Design is how it works."
+              </p>
+              <cite className="text-sm text-muted-foreground mt-2 block not-italic">
+                — A philosophy I live by
+              </cite>
+            </motion.blockquote>
+
+            {/* Stats as magazine infographic */}
+            <motion.div
+              className="grid grid-cols-3 gap-4 p-6 bg-muted/30 border border-border"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.6 }}
+            >
+              {[
+                { value: "3+", label: "Years of Experience", detail: "Coding & Designing" },
+                { value: "20+", label: "Projects Completed", detail: "Web & Mobile" },
+                { value: "∞", label: "Cups of Coffee", detail: "& Counting" },
+              ].map((stat, index) => (
+                <motion.div
+                  key={stat.label}
+                  className="text-center"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <div className="text-4xl md:text-5xl font-display font-bold text-primary mb-1">
+                    {stat.value}
+                  </div>
+                  <div className="text-xs font-bold text-foreground uppercase tracking-wider">
+                    {stat.label}
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    {stat.detail}
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* Tags / Keywords */}
+            <motion.div
+              className="mt-8 flex flex-wrap gap-2"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.7 }}
+            >
+              {["React", "TypeScript", "Design", "UI/UX", "Animation", "Problem Solving"].map((tag, index) => (
                 <motion.span
-                  key={skill}
+                  key={tag}
+                  className="px-3 py-1 border border-border text-xs uppercase tracking-wider text-muted-foreground hover:border-primary hover:text-primary transition-colors cursor-default"
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4, delay: 0.3 + index * 0.05 }}
                   viewport={{ once: true }}
-                  className="px-3 py-1.5 bg-background/50 border border-primary/20 rounded-full text-sm text-foreground/80 hover:border-primary/50 hover:text-primary transition-all duration-300 cursor-default"
+                  transition={{ delay: 0.8 + index * 0.05 }}
                 >
-                  {skill}
+                  {tag}
                 </motion.span>
               ))}
-            </div>
-          </motion.div>
-
-          {/* Experience Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.25 }}
-            viewport={{ once: true }}
-            className="p-6 md:p-8 rounded-3xl bg-card border border-border hover:border-primary/30 transition-colors duration-500"
-          >
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-2 h-2 rounded-full bg-primary" />
-              <span className="text-primary/60 font-mono text-xs uppercase tracking-wider">Experience</span>
-            </div>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-foreground/60 text-sm">Years</span>
-                <span className="font-display text-3xl font-bold text-foreground">5+</span>
-              </div>
-              <div className="h-px bg-border" />
-              <div className="flex justify-between items-center">
-                <span className="text-foreground/60 text-sm">Projects</span>
-                <span className="font-display text-3xl font-bold text-foreground">50+</span>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Quote Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
-            className="md:col-span-2 p-6 md:p-8 rounded-3xl bg-primary/5 border border-primary/10 relative overflow-hidden"
-          >
-            <div className="absolute -top-4 -left-2 text-8xl text-primary/10 font-display">"</div>
-            <blockquote className="relative z-10 text-xl md:text-2xl font-display italic text-foreground/90 leading-relaxed">
-              Design is not just what it looks like — design is how it works.
-            </blockquote>
-            <p className="mt-4 text-primary/60 font-mono text-sm">— Steve Jobs</p>
-          </motion.div>
-
-          {/* Interests Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.35 }}
-            viewport={{ once: true }}
-            className="p-6 md:p-8 rounded-3xl bg-card border border-border hover:border-primary/30 transition-colors duration-500"
-          >
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-2 h-2 rounded-full bg-primary" />
-              <span className="text-primary/60 font-mono text-xs uppercase tracking-wider">Interests</span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {interests.map((interest, index) => (
-                <motion.span
-                  key={interest}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="text-foreground/70 text-sm"
-                >
-                  {interest}{index < interests.length - 1 && <span className="text-primary ml-2">•</span>}
-                </motion.span>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Location Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
-            className="p-6 md:p-8 rounded-3xl bg-gradient-to-br from-primary/5 to-transparent border border-primary/10 hover:border-primary/30 transition-colors duration-500"
-          >
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-primary/60 font-mono text-xs uppercase tracking-wider">Based in</span>
-            </div>
-            <p className="font-display text-2xl font-bold text-foreground">Your City</p>
-            <p className="text-foreground/60 text-sm mt-1">Available Worldwide</p>
-          </motion.div>
-
-          {/* Status Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.45 }}
-            viewport={{ once: true }}
-            className="p-6 md:p-8 rounded-3xl bg-card border border-border hover:border-primary/30 transition-colors duration-500 flex flex-col justify-between"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse shadow-lg shadow-green-500/50" />
-              <span className="text-foreground font-medium">Available for work</span>
-            </div>
-            <a
-              href="#contact"
-              className="mt-6 inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors group"
-            >
-              <span className="font-mono text-sm">Let's talk</span>
-              <svg
-                className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </a>
+            </motion.div>
           </motion.div>
         </div>
+
+        {/* Bottom pagination style */}
+        <motion.div
+          className="mt-20 flex items-center justify-center gap-4"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 1 }}
+        >
+          <div className="h-px w-16 bg-border" />
+          <span className="text-xs tracking-[0.3em] text-muted-foreground uppercase">Continue Reading</span>
+          <div className="h-px w-16 bg-border" />
+        </motion.div>
       </div>
     </section>
   );

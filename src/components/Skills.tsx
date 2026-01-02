@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const Skills = () => {
   const allSkills = [
     { name: "React", size: "large" },
@@ -28,6 +30,46 @@ const Skills = () => {
     small: "text-sm md:text-base px-4 py-2",
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const skillVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 30,
+      scale: 0.8,
+    },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        type: "spring" as const,
+        stiffness: 100,
+        damping: 12,
+        delay: i * 0.05,
+      },
+    }),
+  };
+
+  const floatAnimation = (index: number) => ({
+    y: [0, -8, 0],
+    transition: {
+      duration: 3 + (index % 3),
+      repeat: Infinity,
+      ease: "easeInOut" as const,
+      delay: index * 0.2,
+    },
+  });
+
   return (
     <section id="skills" className="py-24 md:py-32 relative overflow-hidden">
       {/* Background elements */}
@@ -51,44 +93,98 @@ const Skills = () => {
         </div>
 
         {/* Flowing skills cloud */}
-        <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 max-w-5xl mx-auto">
+        <motion.div 
+          className="flex flex-wrap items-center justify-center gap-4 md:gap-6 max-w-5xl mx-auto"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           {allSkills.map((skill, index) => (
-            <span
+            <motion.span
               key={index}
+              custom={index}
+              variants={skillVariants}
+              animate={floatAnimation(index)}
+              whileHover={{ 
+                scale: 1.15, 
+                y: -5,
+                transition: { type: "spring", stiffness: 400, damping: 10 }
+              }}
               className={`
                 ${sizeClasses[skill.size as keyof typeof sizeClasses]}
                 relative group cursor-default
                 text-foreground/70 hover:text-primary
-                transition-all duration-500
-                hover:scale-110 hover:-translate-y-1
+                transition-colors duration-300
               `}
-              style={{ 
-                animationDelay: `${index * 0.05}s`,
-              }}
             >
               {/* Hover glow effect */}
-              <span className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 rounded-full blur-xl transition-all duration-500" />
+              <motion.span 
+                className="absolute inset-0 bg-primary/0 rounded-full blur-xl"
+                whileHover={{ backgroundColor: "hsl(var(--primary) / 0.15)" }}
+                transition={{ duration: 0.3 }}
+              />
               
               {/* Skill text with underline animation */}
               <span className="relative inline-block">
                 {skill.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary to-primary/50 group-hover:w-full transition-all duration-300" />
+                <motion.span 
+                  className="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-primary to-primary/50"
+                  initial={{ width: 0 }}
+                  whileHover={{ width: "100%" }}
+                  transition={{ duration: 0.3 }}
+                />
               </span>
               
               {/* Decorative dot for large skills */}
               {skill.size === "large" && (
-                <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-primary/50 group-hover:bg-primary group-hover:scale-150 transition-all duration-300" />
+                <motion.span 
+                  className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-primary/50"
+                  whileHover={{ 
+                    scale: 1.5, 
+                    backgroundColor: "hsl(var(--primary))",
+                  }}
+                  animate={{
+                    scale: [1, 1.2, 1],
+                    opacity: [0.5, 1, 0.5],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
               )}
-            </span>
+            </motion.span>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Subtle divider */}
-        <div className="mt-20 flex items-center justify-center">
-          <div className="w-1 h-1 rounded-full bg-primary/30" />
-          <div className="mx-2 w-1 h-1 rounded-full bg-primary/50" />
-          <div className="w-1 h-1 rounded-full bg-primary/30" />
-        </div>
+        {/* Animated divider */}
+        <motion.div 
+          className="mt-20 flex items-center justify-center gap-2"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+        >
+          {[0.3, 0.5, 0.7, 0.5, 0.3].map((opacity, i) => (
+            <motion.div 
+              key={i}
+              className="w-1.5 h-1.5 rounded-full bg-primary"
+              style={{ opacity }}
+              animate={{
+                scale: [1, 1.5, 1],
+                opacity: [opacity, 1, opacity],
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                delay: i * 0.2,
+                ease: "easeInOut",
+              }}
+            />
+          ))}
+        </motion.div>
       </div>
     </section>
   );
